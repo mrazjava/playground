@@ -46,10 +46,12 @@ jobs:
     name: Deploy Package
     needs: build
     steps:
+      - name: Enable SSH debugging
+        uses: mxschmitt/action-tmate@v1
       - name: Extract Project Version
         id: fetch-proj-ver
         run: |
-          - echo "::set-output name=project-version::$(cat target/ver)"
+          echo "::set-output name=project-version::$(cat target/ver)"
       - name: Download Maven build artifact
         uses: actions/download-artifact@v1
         with:
