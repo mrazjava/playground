@@ -32,15 +32,14 @@ jobs:
       - name: Extract Project Version
         id: mvn-help-eval
         run: |
-          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/project.version
-          echo "::set-output name=project-version::$(cat target/project.version)"
+          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/version
 #      - name: Enable SSH debugging
 #        uses: mxschmitt/action-tmate@v1
-      - name: Upload project.version artifact
+      - name: Upload version artifact
         uses: actions/upload-artifact@v1
         with:
           name: flamingo
-          path: target/project.version
+          path: target/version
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v1
         with:
@@ -60,17 +59,15 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: flamingo
-      - name: Fetch project version
-        id: fetch-proj-ver
+      - name: Read version
+        id: read-version
         run: |
-          echo "::set-output name=flamingo-ver::$(cat flamingo/project.version)"
-          mv flamingo/Dockerfile .
-        env:
-          FLAMINGO_VERSION: ${{ steps.fetch-proj-ver.outputs.flamingo-ver }}
+          echo "::set-output name=flamingo-ver::$(cat flamingo/version)"
       - name: Build Docker Image
         id: dockerize
         run: |
-          echo "Building Flamingo $FLAMINGO_VERSION"
+          echo "Building Flamingo ${{ steps.read-version.outputs.flamingo-ver }}"
+          mv flamingo/Dockerfile .
           mkdir -p target/
           mv flamingo/playground.jar target/
           docker build -t docker.pkg.github.com/mrazjava/playground/flamingo .
