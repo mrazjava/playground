@@ -42,11 +42,15 @@ jobs:
     name: Deploy Package
     needs: build
     steps:
+      - name: Download Maven build artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: playground-v${{ steps.mvn-jar.outputs.project-version }}.jar
       - name: Build Docker Image
         id: dockerize
         run: |
           mkdir -p target
-          mv artifact/playground*.jar target/playground.jar
+          cp artifact/playground*.jar target/playground.jar
           docker build -t docker.pkg.github.com/mrazjava/playground/flamingo .
       - name: Push image to Github Packages
         run: |
