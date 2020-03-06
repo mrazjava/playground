@@ -10,8 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Maven Master Build
-    env:
-      PROJ_VER: foo
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -37,7 +35,7 @@ jobs:
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
-          name: playground-vx${{ env.PROJ_VER }}.jar
+          name: playground-v${{ env.PROJ_VER }}.jar
           path: target/playground.jar
   deploy:
     runs-on: ubuntu-latest
@@ -47,7 +45,7 @@ jobs:
       - name: Download Maven build artifact
         uses: actions/download-artifact@v1
         with:
-          name: playground-v${{ env.PROJ_VER }}.jar
+          name: playground-v${{ jobs.build.env.PROJ_VER }}.jar
       - name: Build Docker Image
         id: dockerize
         run: |
