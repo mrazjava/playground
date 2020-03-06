@@ -12,8 +12,13 @@ variable between jobs arises, merge steps from multiple jobs which require varia
 
 Here is a snippet of a detailed [explanation](https://github.community/t5/GitHub-Actions/Sharing-a-variable-between-jobs/td-p/38880) 
 why it works like this:
+
 > As jobs run in different runners, those runners are in different machines. Each job runs in a fresh instance 
 > of the virtual environment specified by runs-on. It is not possible to share environment variables between 
 > machines.  We don’t support to share variables between jobs. As you metioned artifacts, we would suggest you use it. 
 > You can write the version into a file , upload it as artifact in one job and then download the artifacts in the 
 > other job , read the file content. 
+
+The [flamingo](https://github.com/mrazjava/playground/blob/master/.github/workflows/flamingo.yml) workflow implements 
+this notion across two jobs. The first job builds JAR and uploads all necessary artifacts. The second, useses these 
+artifacts to echo out project version, and build a docker image off an already built JAR.

@@ -66,7 +66,7 @@ jobs:
       - name: Build Docker Image
         id: dockerize
         run: |
-          echo "Building Flamingo ${{ steps.read-version.outputs.flamingo-ver }}"
+          echo "Building Flamingo using v${{ steps.read-version.outputs.flamingo-ver }}"
           mv flamingo/Dockerfile .
           mkdir -p target/
           mv flamingo/playground.jar target/
