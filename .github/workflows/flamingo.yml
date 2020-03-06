@@ -63,11 +63,14 @@ jobs:
       - name: Fetch project version
         id: fetch-proj-ver
         run: |
-          echo "::set-output name=project-version::$(cat flamingo/project.version)"
+          echo "::set-output name=flamingo-ver::$(cat flamingo/project.version)"
           mv flamingo/Dockerfile .
+        env:
+          FLAMINGO_VERSION: ${{ steps.fetch-proj-ver.outputs.flamingo-ver }}
       - name: Build Docker Image
         id: dockerize
         run: |
+          echo "Building Flamingo $FLAMINGO_VERSION"
           mkdir -p target/
           mv flamingo/playground.jar target/
           docker build -t docker.pkg.github.com/mrazjava/playground/flamingo .
