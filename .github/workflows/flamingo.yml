@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build app
+    name: Build Flamingo
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -40,7 +40,17 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: flamingo
-          path: target/project.version, target/playground.jar, Dockerfile
+          path: target/project.version
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: flamingo
+          path: target/playground.jar
+      - name: Upload Dockerfile artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: flamingo
+          path: Dockerfile
   deploy:
     runs-on: ubuntu-latest
     name: Package and Deploy
@@ -54,6 +64,7 @@ jobs:
         id: fetch-proj-ver
         run: |
           echo "::set-output name=project-version::$(cat flamingo/project.version)"
+          mv flamingo/Dockerfile .
       - name: Build Docker Image
         id: dockerize
         run: |
