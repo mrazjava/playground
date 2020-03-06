@@ -39,37 +39,31 @@ jobs:
       - name: Upload project.version artifact
         uses: actions/upload-artifact@v1
         with:
-          name: project.version
+          name: flamingo
           path: target/project.version
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
-          name: playground-v${{ steps.mvn-help-eval.outputs.project-version }}.jar
+          name: flamingo
           path: target/playground.jar
   deploy:
     runs-on: ubuntu-latest
     name: Package and Deploy
     needs: build
     steps:
-      - uses: actions/checkout@v1
       - name: Download project.version artifact
         uses: actions/download-artifact@v1
         with:
-          name: project.version
+          name: flamingo
       - name: Fetch project version
         id: fetch-proj-ver
         run: |
-          ls -l project.version/
-          echo "::set-output name=project-version::$(cat project.version/project.version)"
-      - name: Download JAR artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: playground-v${{ steps.fetch-proj-ver.outputs.project-version }}.jar
+          echo "::set-output name=project-version::$(cat flamingo/project.version)"
       - name: Build Docker Image
         id: dockerize
         run: |
           mkdir -p target/
-          mv artifact/playground*.jar target/
+          mv flamingo/playground.jar target/
           docker build -t docker.pkg.github.com/mrazjava/playground/flamingo .
       - name: Push image to Github Packages
         run: |
