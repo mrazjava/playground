@@ -3,7 +3,9 @@ name: master
 on:
   push:
     branches:
-      - master/garbage/mvnver
+      - 'master'
+    paths:
+      - 'garbage/mvnver'
 jobs:
   build:
     runs-on: ubuntu-latest
