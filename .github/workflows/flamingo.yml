@@ -56,13 +56,11 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: project.version
-      - name: Enable SSH debugging
-        uses: mxschmitt/action-tmate@v1
       - name: Fetch project version
         id: fetch-proj-ver
         run: |
           ls -l project.version/
-          echo "::set-output name=project-version::$(cat project.version)"
+          echo "::set-output name=project-version::$(cat project.version/project.version)"
       - name: Download JAR artifact
         uses: actions/download-artifact@v1
         with:
