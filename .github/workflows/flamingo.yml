@@ -29,13 +29,13 @@ jobs:
         run: |
           mvn -B clean package
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/ver
-          echo "::set-output name=project-version::$(cat target/ver)"
+          echo "::set-env name=PROJ_VER::$(cat target/ver)"
 #      - name: Enable SSH debugging
 #        uses: mxschmitt/action-tmate@v1
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
-          name: playground-v${{ steps.mvn-pkg.outputs.project-version }}.jar
+          name: playground-v${{ env.PROJ_VER }}.jar
           path: target/playground.jar
   deploy:
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
       - name: Download Maven build artifact
         uses: actions/download-artifact@v1
         with:
-          name: playground-v${{ steps.mvn-jar.outputs.project-version }}.jar
+          name: playground-v${{ env.PROJ_VER }}.jar
       - name: Build Docker Image
         id: dockerize
         run: |
