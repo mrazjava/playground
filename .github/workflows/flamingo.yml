@@ -46,8 +46,7 @@ jobs:
     name: Deploy Package
     needs: build
     steps:
-      - name: Enable SSH debugging
-        uses: mxschmitt/action-tmate@v1
+      - uses: actions/checkout@master
       - name: Extract Project Version
         id: fetch-proj-ver
         run: |
