@@ -7,9 +7,6 @@ on:
     paths:
       - 'trigger/flamingo'
 
-env:
-  PROJ_VER: foo
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,24 +29,31 @@ jobs:
         id: mvn-pkg
         run: |
           mvn -B clean package
+      - name: Extract Project Version
+        id: mvn-help-eval
+        run: |
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/ver
-          echo "::set-env name=env.PROJ_VER::$(cat target/ver)"
+          echo "::set-output name=project-version::$(cat target/ver)"
 #      - name: Enable SSH debugging
 #        uses: mxschmitt/action-tmate@v1
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
-          name: playground-v${{ env.PROJ_VER }}.jar
+          name: playground-v${{ steps.mvn-help-eval.outputs.project-version }}.jar
           path: target/playground.jar
   deploy:
     runs-on: ubuntu-latest
     name: Deploy Package
     needs: build
     steps:
+      - name: Extract Project Version
+        id: fetch-proj-ver
+        run: |
+          - echo "::set-output name=project-version::$(cat target/ver)"
       - name: Download Maven build artifact
         uses: actions/download-artifact@v1
         with:
-          name: playground-v${{ env.PROJ_VER }}.jar
+          name: playground-v${{ steps.fetch-proj-ver.outputs.project-version }}.jar
       - name: Build Docker Image
         id: dockerize
         run: |
