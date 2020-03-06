@@ -58,9 +58,9 @@ jobs:
       - name: Fetch project version
         id: fetch-proj-ver
         run: |
-          echo "::set-output name=project-version::$(cat artifact/project.version)"
-      - name: Enable SSH debugging
-        uses: mxschmitt/action-tmate@v1
+          echo "::set-output name=project-version::$(cat project.version)"
+#      - name: Enable SSH debugging
+#        uses: mxschmitt/action-tmate@v1
       - name: Download JAR artifact
         uses: actions/download-artifact@v1
         with:
