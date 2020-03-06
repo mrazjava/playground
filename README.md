@@ -7,5 +7,8 @@ The sources in this repo for all practical purposes are irrelevant. I started wi
 project via [Spring Initializr](https://start.spring.io/), just so there is something to use for 
 a build pipeline.
 
+## Github Actions Documentation
+- [Workflow Syntax](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions)
+
 ## Useful Tools
 [SSH](https://github.com/marketplace/actions/debugging-with-tmate) debugging of github action workflows.
