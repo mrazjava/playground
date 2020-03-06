@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Maven Master Build
+    name: Build app
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -39,15 +39,35 @@ jobs:
       - name: Upload project.version artifact
         uses: actions/upload-artifact@v1
         with:
+          name: project.version
           path: target/project.version
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
           name: playground-v${{ steps.mvn-help-eval.outputs.project-version }}.jar
           path: target/playground.jar
+  deploy:
+    runs-on: ubuntu-latest
+    name: Package and Deploy
+    needs: build
+    steps:
+      - name: Download project.version artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: project.version
+      - name: Fetch project version
+        id: fetch-proj-ver
+        run: |
+          echo "::set-output name=project-version::$(cat artifact/project.version)"
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: playground-v${{ steps.fetch-proj-ver.outputs.project-version }}.jar
       - name: Build Docker Image
         id: dockerize
         run: |
+          mkdir -p target/
+          mv artifact/playground*.jar target/
           docker build -t docker.pkg.github.com/mrazjava/playground/flamingo .
       - name: Push image to Github Packages
         run: |
