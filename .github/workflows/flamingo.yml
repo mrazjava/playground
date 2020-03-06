@@ -41,25 +41,9 @@ jobs:
         with:
           name: playground-v${{ steps.mvn-help-eval.outputs.project-version }}.jar
           path: target/playground.jar
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploy Package
-    needs: build
-    steps:
-      - uses: actions/checkout@master
-      - name: Extract Project Version
-        id: fetch-proj-ver
-        run: |
-          echo "::set-output name=project-version::$(cat target/ver)"
-      - name: Download Maven build artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: playground-v${{ steps.fetch-proj-ver.outputs.project-version }}.jar
       - name: Build Docker Image
         id: dockerize
         run: |
-          mkdir -p target
-          cp artifact/playground*.jar target/playground.jar
           docker build -t docker.pkg.github.com/mrazjava/playground/flamingo .
       - name: Push image to Github Packages
         run: |
