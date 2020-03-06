@@ -1,0 +1,27 @@
+name: master
+#-$(echo `date '+%Y%m%d%H%M%S'`)
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Maven Master Build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Maven Package
+        id: mvn-pkg
+        run: |
+          mvn -B clean package
+          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/ver
+          echo "::set-output name=project-version::$(cat target/ver)"
+      - name: Upload Maven build artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: artifact-${{ steps.mvn-pkg.outputs.project-version }}.jar
+          path: target/booklink-backend.jar
