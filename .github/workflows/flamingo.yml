@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: playground-v${{ steps.mvn-help-eval.outputs.project-version }}.jar
-          path: target/$FLAMINGO/playground.jar
+          path: target/playground.jar
       - name: Build Docker Image
         id: dockerize
         run: |
