@@ -28,17 +28,11 @@ jobs:
           mvn -B clean package
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/ver
           echo "::set-output name=project-version::$(cat target/ver)"
-      - name: enable SSH
-        uses: mxschmitt/action-tmate@v1
+#      - name: Enable SSH debugging
+#        uses: mxschmitt/action-tmate@v1
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
-          name: artifact-v${{ steps.mvn-pkg.outputs.project-version }}.jar
-          path: target/playground*.jar
+          name: playground-v${{ steps.mvn-pkg.outputs.project-version }}.jar
+          path: target/playground.jar
 
-# enable ssh session to debug actions runner
-# https://github.com/marketplace/actions/debugging-with-tmate
-#    steps:
-#      - uses: actions/checkout@v1
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v1
