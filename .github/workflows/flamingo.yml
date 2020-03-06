@@ -32,10 +32,14 @@ jobs:
       - name: Extract Project Version
         id: mvn-help-eval
         run: |
-          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/ver
-          echo "::set-output name=project-version::$(cat target/ver)"
+          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/project.version
+          echo "::set-output name=project-version::$(cat target/project.version)"
 #      - name: Enable SSH debugging
 #        uses: mxschmitt/action-tmate@v1
+      - name: Upload project.version artifact
+        uses: actions/upload-artifact@v1
+        with:
+          path: target/project.version
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
