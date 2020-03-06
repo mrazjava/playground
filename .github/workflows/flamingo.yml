@@ -33,7 +33,7 @@ jobs:
         run: |
           mvn -B clean package
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/ver
-          echo "::set-env name=PROJ_VER::$(cat target/ver)"
+          echo "::set-env name=env.PROJ_VER::$(cat target/ver)"
 #      - name: Enable SSH debugging
 #        uses: mxschmitt/action-tmate@v1
       - name: Upload Maven build artifact
