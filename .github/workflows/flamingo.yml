@@ -40,12 +40,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: flamingo
-          path: target/project.version
-      - name: Upload Maven build artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: flamingo
-          path: target/playground.jar
+          path: target/project.version, target/playground.jar, Dockerfile
   deploy:
     runs-on: ubuntu-latest
     name: Package and Deploy

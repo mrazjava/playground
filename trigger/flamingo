@@ -1,2 +1,2 @@
 Extract project version using mvn, build docker image and upload it to github packages
-******************************
+*******************************
