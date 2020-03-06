@@ -23,5 +23,5 @@ jobs:
       - name: Upload Maven build artifact
         uses: actions/upload-artifact@v1
         with:
-          name: artifact-${{ steps.mvn-pkg.outputs.project-version }}.jar
-          path: target/booklink-backend.jar
+          name: artifact-v${{ steps.mvn-pkg.outputs.project-version }}.jar
+          path: target/playground*.jar
