@@ -1,0 +1,42 @@
+name: tiger
+
+on:
+  push:
+    tags:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Tiger handling Tag
+    steps:
+      - name: extract git-tagged version
+        id: extract-tagged-version
+        run: echo ::set-output name=tag-version::${GITHUB_REF/refs\/tags\//}
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Evaluate dependency cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: use JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: build JAR
+        id: mvn-pkg
+        run: |
+          mvn -B clean package
+      - name: extract maven version
+        id: mvn-help-eval
+        run: |
+          mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/version
+          mv target/playground.jar /target/playground-$(cat target/version).jar
+      - name: upload JAR artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: tiger-tag${{ steps.extract-tagged-version.outputs.tag-version }}
+          path: target/playground*.jar
