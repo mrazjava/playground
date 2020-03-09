@@ -1,5 +1,5 @@
 # Github Playground
-A dummy project I use to test new github features. For example, I play around here when I experiment with github 
+A dummy project I use to test github features that are not familiar to me. For example, I play around here when I experiment with github 
 actions, webhooks, and generally features that interact with pushes to a repo.
 
 The sources in this repo for all practical purposes are irrelevant. I started with a stock boot 
