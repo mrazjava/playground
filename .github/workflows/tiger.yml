@@ -1,5 +1,9 @@
 name: tiger
-
+#
+# MAIN CONCEPTS TESTED
+# - triggering workflow on tag push
+# - extracting tagged value and using it to create a build artifact
+#
 on:
   push:
     tags:
@@ -34,9 +38,12 @@ jobs:
         id: mvn-help-eval
         run: |
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/version
-          mv target/playground.jar target/playground-$(cat target/version).jar
+          echo ::set-output name=mvn-version::$(cat target/version)
+      - name: rename JAR artifact w/ maven version
+        run: |
+          mv target/playground.jar target/playground-${{ steps.mvn-help-eval.outputs.mvn-version }}.jar
       - name: upload JAR artifact
         uses: actions/upload-artifact@v1
         with:
           name: tiger-tag${{ steps.extract-tagged-version.outputs.tag-version }}
-          path: target/playground*.jar
+          path: target/playground-${{ steps.mvn-help-eval.outputs.mvn-version }}.jar

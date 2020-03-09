@@ -1,4 +1,10 @@
 name: flamingo
+#
+# MAIN CONCEPTS TESTED
+# - controlling project version defined in maven
+# - persisting data between jobs using uploaded artifacts
+# - uploading package to github packages
+#
 #-$(echo `date '+%Y%m%d%H%M%S'`)
 on:
   push:
