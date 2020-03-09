@@ -30,12 +30,11 @@ jobs:
         id: mvn-pkg
         run: |
           mvn -B clean package
-          mv target/playground.jar .
       - name: extract maven version
         id: mvn-help-eval
         run: |
           mvn help:evaluate -Dexpression=project.version -q -DforceStdout > target/version
-          mv playground.jar /target/playground-$(cat target/version).jar
+          mv target/playground.jar target/playground-$(cat target/version).jar
       - name: upload JAR artifact
         uses: actions/upload-artifact@v1
         with:
