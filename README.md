@@ -6,7 +6,10 @@ The sources in this repo for all practical purposes are irrelevant. I started wi
 project via [Spring Initializr](https://start.spring.io/), just so there is something to use for 
 a build pipeline.
 
-## Github Actions Documentation
+## Github Actions
+Measurable work outputs from this repo can be found in the Actions tab. It contains jobs that executed as a result of my specific tests. Resulting workflow files contain tested CI recipes I use in real projects.
+
+Documentation I find useful:
 - [Workflow Syntax](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 
 
