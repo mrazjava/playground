@@ -45,5 +45,5 @@ jobs:
       - name: upload JAR artifact
         uses: actions/upload-artifact@v1
         with:
-          name: tiger-tag${{ steps.extract-tagged-version.outputs.tag-version }}
+          name: tiger-${{ steps.extract-tagged-version.outputs.tag-version }}
           path: target/playground-${{ steps.mvn-help-eval.outputs.mvn-version }}.jar
