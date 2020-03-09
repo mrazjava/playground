@@ -7,7 +7,7 @@ project via [Spring Initializr](https://start.spring.io/), just so there is some
 a build pipeline.
 
 ## Github Actions
-Measurable work outputs from this repo can be found in the Actions tab. It contains jobs that executed as a result of my specific tests. Resulting workflow files contain tested CI recipes I use in real projects.
+Measurable traces of my tests on this playground can be found in the [Actions](https://github.com/mrazjava/playground/actions) tab. It contains jobs that executed as a result of my specific experiments. Resulting [workflow files](https://github.com/mrazjava/playground/tree/master/.github/workflows) contain tested CI recipes I use in real projects.
 
 Documentation I find useful:
 - [Workflow Syntax](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions)
