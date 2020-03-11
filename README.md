@@ -14,4 +14,5 @@ Documentation I find useful:
 
 
 ## Useful Tools
-[SSH](https://github.com/marketplace/actions/debugging-with-tmate) debugging of github action workflows.
+* [SSH](https://github.com/marketplace/actions/debugging-with-tmate) debugging of github action workflows.
+* [grip](https://github.com/joeyespo/grip) preview renderer using github markdown API, allows to tweak readme locally before sending final version to gitub (on ubuntu `sudo apt install grip`)
