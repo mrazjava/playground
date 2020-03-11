@@ -11,7 +11,7 @@ Measurable traces of my tests on this playground can be found in the [Actions](h
 
 Documentation I find useful:
 - [Workflow Syntax](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions)
-
+- [Variables & Steps](https://www.edwardthomson.com/blog/github_actions_15_sharing_data_between_steps.html)
 
 ## Useful Tools
 * [SSH](https://github.com/marketplace/actions/debugging-with-tmate) debugging of github action workflows.
