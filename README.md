@@ -13,6 +13,6 @@ Documentation I find useful:
 - [Workflow Syntax](https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions)
 - [Variables & Steps](https://www.edwardthomson.com/blog/github_actions_15_sharing_data_between_steps.html)
 
-## Useful Tools
+## Handy Tools
 * [SSH](https://github.com/marketplace/actions/debugging-with-tmate) debugging of github action workflows.
 * [grip](https://github.com/joeyespo/grip) preview renderer using github markdown API, allows to tweak readme locally before sending final version to gitub (on ubuntu `sudo apt install grip`)
