@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PlaygroundApplication {
 
 	public static void main(String[] args) {
+
+		Utils.drawProgressBar(10, 500, '=');
 		SpringApplication.run(PlaygroundApplication.class, args);
 	}
 
