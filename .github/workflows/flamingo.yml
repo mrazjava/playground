@@ -62,7 +62,7 @@ jobs:
     needs: build
     steps:
       - name: Download project.version artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4.1.7
         with:
           name: flamingo
       - name: Read version
